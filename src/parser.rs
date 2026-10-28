@@ -1,5 +1,6 @@
 use napi_derive::napi;
 use scraper::Html;
+use std::rc::Rc;
 use sxd_document::Package;
 
 use crate::engines::{
@@ -10,7 +11,7 @@ use crate::types::{HTMLElement, QueryType, SelectFirstOptions, SelectManyOptions
 #[napi(js_name = "HTMLParser")]
 pub struct HTMLParser {
     pub(crate) content: String,
-    document: Option<Html>,
+    document: Option<Rc<Html>>,
     package: Option<Package>,
 }
 
@@ -34,10 +35,10 @@ impl HTMLParser {
         return self.package.as_ref().unwrap();
     }
 
-    fn get_document(&mut self) -> &Html {
+    fn get_document(&mut self) -> &Rc<Html> {
         if self.document.is_none() {
             let parsed = Html::parse_document(&self.content);
-            self.document = Some(parsed);
+            self.document = Some(Rc::new(parsed));
         }
 
         self.document.as_ref().unwrap()

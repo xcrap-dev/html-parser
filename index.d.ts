@@ -14,6 +14,17 @@ export declare class HTMLElement {
   selectMany(options: SelectManyOptions): Array<HTMLElement>
   get firstChild(): HTMLElement | null
   get lastChild(): HTMLElement | null
+  get children(): Array<HTMLElement>
+  /** Parent element, or `null` for the root or elements without document context (e.g. XPath results). */
+  get parent(): HTMLElement | null
+  /** All ancestors, from the closest parent up to the root element. */
+  get ancestors(): Array<HTMLElement>
+  get nextSibling(): HTMLElement | null
+  get previousSibling(): HTMLElement | null
+  /** Sibling elements (excluding this element), in document order. */
+  get siblings(): Array<HTMLElement>
+  /** Closest ancestor (or the element itself) matching the CSS selector. */
+  closest(selector: string): HTMLElement | null
   toString(): string
 }
 

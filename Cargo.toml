@@ -12,6 +12,7 @@ crate-type = ["cdylib"]
 napi = { version = "3.0.0", default-features = false, features = ["napi4", "async"] }
 napi-derive = "3.0.0"
 scraper = "0.25.0"
+ego-tree = "0.10.0"
 sxd-document = "0.3.2"
 sxd-xpath = "0.4.2"
 sxd_html = "0.1.2"
