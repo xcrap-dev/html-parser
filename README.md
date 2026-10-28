@@ -46,7 +46,7 @@ Although part of the [Xcrap](https://github.com/Xcrap-Cloud) scraping ecosystem,
 - **🎯 Dual Query Support** — Query elements using both **CSS selectors** (via `scraper`) and **XPath** expressions (via `sxd-xpath`).
 - **🦥 Lazy Loading** — Internal CSS and XPath engines are only initialized when first needed, reducing unnecessary overhead.
 - **🔢 Built-in Limits** — Pass a `limit` option to `selectMany` to cap the number of returned elements.
-- **🌲 Element Traversal** — Navigate nested elements using `selectFirst` and `selectMany` directly on `HTMLElement` instances.
+- **🌲 Element Traversal** — Navigate nested elements with `selectFirst` / `selectMany`, and move through the tree with `parent`, `children`, `nextSibling`, `closest()` and more.
 - **🔒 Type-Safe** — Fully typed TypeScript declarations included (`index.d.ts`).
 - **🖥️ Platform Support** — Pre-built native binary currently available for **Windows x64** only. Other platforms require compilation from source (see [Development](#️-development)).
 
@@ -222,6 +222,14 @@ Represents a matched DOM element. Provides properties and methods to inspect and
 | `attributes` | `Record<string, string>` *(getter)* | All attributes as a key-value object.                  |
 | `firstChild` | `HTMLElement \| null` *(getter)* | The first child element, or `null` if none.              |
 | `lastChild`  | `HTMLElement \| null` *(getter)* | The last child element, or `null` if none.               |
+| `children`   | `HTMLElement[]` *(getter)* | Direct child elements, in document order.                    |
+| `parent`     | `HTMLElement \| null` *(getter)* | The parent element, or `null` at the root.                |
+| `ancestors`  | `HTMLElement[]` *(getter)* | All ancestors, from the closest parent up to the root.       |
+| `nextSibling` | `HTMLElement \| null` *(getter)* | The next sibling element, or `null` if none.            |
+| `previousSibling` | `HTMLElement \| null` *(getter)* | The previous sibling element, or `null` if none.    |
+| `siblings`   | `HTMLElement[]` *(getter)* | Sibling elements, excluding the element itself.              |
+
+> **Navigation and XPath:** tree navigation works on elements returned by CSS queries (and anything reached from them). Elements returned by XPath queries carry no document context, so `parent`, `ancestors`, siblings and `closest()` return `null` / `[]` for them.
 
 #### Methods
 
@@ -248,6 +256,14 @@ element.selectMany(options: SelectManyOptions): HTMLElement[]
 ```
 
 Scoped version of `HtmlParser.selectMany`. Searches **within** the current element.
+
+##### `closest(selector)`
+
+```ts
+element.closest(selector: string): HTMLElement | null
+```
+
+Returns the closest ancestor (or the element itself) matching the CSS `selector`, or `null`.
 
 ##### `toString()`
 
@@ -403,6 +419,13 @@ if (nav) {
   // First and last child shortcuts
   console.log(nav.firstChild?.tagName)  // "UL"
   console.log(nav.lastChild?.tagName)   // "UL"
+
+  // Walk up and sideways from any element
+  const about = links[1]
+  console.log(about.parent?.tagName)            // "LI"
+  console.log(about.closest("nav")?.id)         // "main-nav"
+  console.log(about.parent?.nextSibling?.text)  // "Contact"
+  console.log(nav.children.length)              // 1
 }
 ```
 
