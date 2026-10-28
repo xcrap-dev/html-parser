@@ -7,11 +7,11 @@
   "type": "commonjs",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Xcrap-Cloud/html-parser.git"
+    "url": "git+ssh://git@github.com/xcrap-dev/html-parser.git"
   },
   "license": "MIT",
   "author": "Marcuth <me@marcuth.dev>",
-  "homepage": "https://github.com/Xcrap-Cloud/html-parser#readme",
+  "homepage": "https://github.com/xcrap-dev/html-parser#readme",
   "keywords": [
     "xcrap",
     "html parser"
@@ -102,9 +102,9 @@
   },
   "packageManager": "yarn@4.12.0",
   "optionalDependencies": {
-    "@xcrap/html-parser-win32-x64-msvc": "0.1.0",
-    "@xcrap/html-parser-darwin-x64": "0.1.0",
-    "@xcrap/html-parser-linux-x64-gnu": "0.1.0",
-    "@xcrap/html-parser-darwin-arm64": "0.1.0"
+    "@xcrap/html-parser-win32-x64-msvc": "0.2.0",
+    "@xcrap/html-parser-darwin-x64": "0.2.0",
+    "@xcrap/html-parser-linux-x64-gnu": "0.2.0",
+    "@xcrap/html-parser-darwin-arm64": "0.2.0"
   }
 }
